@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
 
-import {styles} from './HomeScreen.styles';
+import {createHomeStyles} from './HomeScreen.styles';
 import {HomeScreenProps} from './HomeScreen.types';
+import {useTheme} from '../../theme/theme';
 
 const practices = [
   {
@@ -35,6 +36,8 @@ const practices = [
 ];
 
 const HomeScreen = ({entriesCount, navigation}: HomeScreenProps) => {
+  const {theme} = useTheme();
+  const styles = useMemo(() => createHomeStyles(theme), [theme]);
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <View style={styles.header}>

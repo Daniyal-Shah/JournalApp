@@ -8,12 +8,15 @@ import {
   View,
 } from 'react-native';
 
-import { styles } from './JournalScreen.styles';
+import { useTheme } from '../../theme/theme';
+import { createJournalStyles } from './JournalScreen.styles';
 import { JournalScreenProps } from './JournalScreen.types';
 
 const MAX_CHARS = 600;
 
 const JournalScreen = ({ navigation, onSubmit }: JournalScreenProps) => {
+  const { theme } = useTheme();
+  const styles = useMemo(() => createJournalStyles(theme), [theme]);
   const [entry, setEntry] = useState('');
   const [error, setError] = useState<string | null>(null);
 

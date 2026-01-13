@@ -7,8 +7,9 @@ import {
   View,
 } from 'react-native';
 
+import { useTheme } from '../../theme/theme';
 import { JournalEntry } from '../../types/journal';
-import { styles } from './DashboardScreen.styles';
+import { createDashboardStyles } from './DashboardScreen.styles';
 import { DashboardScreenProps } from './DashboardScreen.types';
 
 const selfCareTasks = [
@@ -19,6 +20,8 @@ const selfCareTasks = [
 ];
 
 const DashboardScreen = ({ navigation, entries }: DashboardScreenProps) => {
+  const { theme } = useTheme();
+  const styles = useMemo(() => createDashboardStyles(theme), [theme]);
   const latestEntry = useMemo(
     () => (entries.length > 0 ? entries[0] : null),
     [entries],

@@ -14,12 +14,14 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import DashboardScreen from './src/screens/DashboardScreen/DashboardScreen';
 import HomeScreen from './src/screens/HomeScreen/HomeScreen';
 import JournalScreen from './src/screens/JournalScreen/JournalScreen';
+import { ThemeProvider, useTheme } from './src/theme/theme';
 import { JournalEntry } from './src/types/journal';
 import { RootStackParamList } from './src/types/navigation';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-function App() {
+const AppContent = () => {
+  const { theme } = useTheme();
   const [entries, setEntries] = useState<JournalEntry[]>([]);
 
   const handleSubmitEntry = (text: string) => {
@@ -35,7 +37,9 @@ function App() {
   return (
     <SafeAreaProvider>
       <StatusBar barStyle="dark-content" backgroundColor="transparent" />
-      <SafeAreaView style={{ flex: 1, backgroundColor: '#F6F4FB' }}>
+      <SafeAreaView
+        style={{ flex: 1, backgroundColor: theme.colors.background }}
+      >
         <NavigationContainer>
           <Stack.Navigator
             initialRouteName="Home"
@@ -56,6 +60,14 @@ function App() {
         </NavigationContainer>
       </SafeAreaView>
     </SafeAreaProvider>
+  );
+};
+
+function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
   );
 }
 
